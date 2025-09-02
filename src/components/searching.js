@@ -1,5 +1,3 @@
-import {rules, createComparison} from "../lib/compare.js";
-
 export function initSearching(searchField = 'search') {
     return (query, state, action) => {
         return state[searchField] ? Object.assign({}, query, {

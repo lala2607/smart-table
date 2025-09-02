@@ -68,9 +68,11 @@ const {applyPagination, updatePagination} = initPagination(
 
 async function init() {
     const indexes = await api.getIndexes();
-    updateIndexes(indexes);
-    return indexes;
+    updateIndexes(sampleTable.filter.elements, {
+        searchBySeller: indexes.sellers
+    });
 }
 
+
 document.querySelector('#app').appendChild(sampleTable.container);
-init().then(() => render());
+init().then(render);

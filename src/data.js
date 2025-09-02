@@ -3,7 +3,6 @@ import {makeIndex} from "./lib/utils.js";
 export function initData(sourceData) {
     const BASE_URL = 'https://webinars.webdev.education-services.ru/sp7-api';
     
-
     let sellers;
     let customers;
     let lastResult;
@@ -17,23 +16,16 @@ export function initData(sourceData) {
         total: item.total_amount
     }));
 
-
     const getIndexes = async () => {
         if (!sellers || !customers) {
             [sellers, customers] = await Promise.all([
                 fetch(`${BASE_URL}/sellers`).then(res => res.json()),
                 fetch(`${BASE_URL}/customers`).then(res => res.json()),
             ]);
-            
-     
-            sellers = makeIndex(sellers, 'id', v => `${v.first_name} ${v.last_name}`);
-            customers = makeIndex(customers, 'id', v => `${v.first_name} ${v.last_name}`);
         }
 
         return { sellers, customers };
     }
-
- 
     const getRecords = async (query, isUpdated = false) => {
         const qs = new URLSearchParams(query);
         const nextQuery = qs.toString();
